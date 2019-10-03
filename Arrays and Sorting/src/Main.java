@@ -10,22 +10,43 @@ public class Main {
 
     public static void main(String[] args) {
 
-        fillArray();//  filling the array with random elements
+        new bubbleThreadSort().start();
+        new selectThreadSort().start();
+        new insertThreadSort().start();
 
-        long a = System.currentTimeMillis();// note time for bubble sort runtime
-        sortBubble(arr);
-        System.out.println("Bubble sort runtime = " + (System.currentTimeMillis() -a) + " millis");
+        //printArray();
 
-        long b = System.currentTimeMillis();//  -//-
-        sortSelect(arr);
-        System.out.println("Sort by selection runtime = " + (System.currentTimeMillis() -b) + " millis");
+    }
 
-        long c = System.currentTimeMillis();// -//-
-        sortInsert(arr);
-        System.out.println("Insertion sort runtime = " + (System.currentTimeMillis() -c) + " millis");
-
-        printArray();
+    static class bubbleThreadSort extends Thread {
+        @Override
+        public void run() {
+            fillArray();
+            long a = System.currentTimeMillis();// note time for bubble sort runtime
+            sortBubble(arr);
+            System.out.println("Bubble sort runtime = " + (System.currentTimeMillis() - a) + " millis");
         }
+    }
+
+    static class selectThreadSort extends Thread {
+        @Override
+        public void run() {
+            fillArray();
+            long b = System.currentTimeMillis();//  -//-
+            sortSelect(arr);
+            System.out.println("Sort by selection runtime = " + (System.currentTimeMillis() -b) + " millis");
+        }
+    }
+
+    static class insertThreadSort extends Thread {
+        @Override
+        public void run() {
+            fillArray();
+            long c = System.currentTimeMillis();// -//-
+            sortInsert(arr);
+            System.out.println("Insertion sort runtime = " + (System.currentTimeMillis() -c) + " millis");
+        }
+    }
 
     /**
      * Sort bubble
